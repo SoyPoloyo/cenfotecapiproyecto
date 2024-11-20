@@ -1,0 +1,78 @@
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  color: #333;
+}
+
+.navbar {
+  background: #1D3261;
+  color: #ffffff;
+  border-bottom: #ac4424 3px solid;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  
+}
+
+.navbar-brand h1 {
+  color: #ffffff;
+  font-size: 24px;
+  margin: 0;
+  padding-left: 10px; /* Añadir espacio entre el logo y el título */
+}
+
+.navbar-toggler {
+  background-color: #ac4424;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.nav-link:hover,
+.active {
+  color: #ac4424;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 576px) {
+  .navbar-brand img {
+    height: 40px;
+    margin-right: 15px;
+  }
+
+  .navbar-brand h1 {
+    font-size: 18px;
+    padding-left: 0; /* Remove padding on mobile */
+  }
+
+  .navbar-brand {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .navbar-nav {
+    margin-top: 10px;
+  }
+}
+
+/* Media query for desktop screens */
+@media (min-width: 577px) {
+  .navbar-brand img {
+    height: 65px; /* Set a fixed height for the logo on desktop */
+  }
+}

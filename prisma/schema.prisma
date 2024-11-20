@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Atleta {
+  id              Int      @id @default(autoincrement())
+  nombre          String
+  primerApellido  String
+  segundoApellido String?
+  paisId          Int
+  Pais            Pais     @relation(fields: [paisId], references: [id]) // Relación con Pais
+  fechaNacimiento DateTime
+  sexo            String // masculino, femenino
+  pesoCorporal    Float // Peso corporal en kg
+
+  Resultados Resultado[]
+}
+
+model Competencia {
+  id          Int      @id @default(autoincrement())
+  nombre      String // Nombre de la competencia (Ej: "Juegos Olímpicos París 2024")
+  ubicacion   String // Ciudad, país
+  categoria   String // Ej: Sub-17, Senior, Juegos Olímpicos
+  Eventos Evento[]
+}
+
+model Evento {
+  id            Int    @id @default(autoincrement())
+  competenciaId Int
+  tipo          String // Arranque, Envión
+  categoriaPeso String // Ej: 61kg, 73kg, 81kg
+  sexo          String // masculino, femenino
+
+  Competencia Competencia @relation(fields: [competenciaId], references: [id])
+  Resultados  Resultado[]
+}
+
+model Resultado {
+  id            Int     @id @default(autoincrement())
+  atletaId      Int
+  eventoId      Int
+  pesoLevantado Float // Peso levantado en kg
+  intento       Int // Intento 1, 2 o 3
+  esValido      Boolean // Si el levantamiento fue válido
+  medalla       String? // Oro, Plata, Bronce, o null si no obtuvo medalla
+
+  Atleta Atleta @relation(fields: [atletaId], references: [id])
+  Evento Evento @relation(fields: [eventoId], references: [id])
+}
+
+model Pais {
+  id      Int      @id @default(autoincrement())
+  nombre  String // Nombre del país
+  codigo  String   @unique // Código del país (Ej: CRC para Costa Rica)
+  atletas Atleta[] // Relación con Atletas
+}
